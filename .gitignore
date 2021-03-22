@@ -1,3 +1,9 @@
+*.iml
+.idea/*
+.DS_STORE
+keys.js
+lec/
+
 # Compiled class file
 *.class
 
