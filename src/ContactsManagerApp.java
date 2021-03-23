@@ -1,8 +1,12 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ContactsManagerApp {
-    public static void main (String[] args) {
+    public static void main (String[] args) throws IOException {
         mainMenu();
+//        userChoice();
+        Scanner scanner = new Scanner(System.in);
+
     }
         public static void mainMenu(){
             System.out.println("1. View contacts");
@@ -12,8 +16,18 @@ public class ContactsManagerApp {
             System.out.println("5. Exit");
             System.out.println("Enter an option (1, 2, 3, 4 or 5): ");
         }
+
 }
 
-        public static void userChoice(){
-            Scanner
-        }
+
+//              888_8888
+//        public static void userChoice(){
+//
+//            Input option = new Input();
+//            int choice = option.getInt("Enter an option (1, 2, 3, 4 or 5): ");
+//            switch (choice) {
+//                case 1:
+//                  phoneNumber = 1;
+//                    break;
+//            }
+//        }
