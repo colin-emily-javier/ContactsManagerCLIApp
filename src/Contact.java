@@ -25,9 +25,4 @@ public class Contact {
             this.phoneNumber = phoneNumber;
             }
 
-    public String getContactInfo() {
-            String contactInfo = getName() + " " + getPhoneNumber();
-            return contactInfo;
-            }
-
 }

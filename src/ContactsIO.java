@@ -20,7 +20,7 @@ public class ContactsIO {
                 System.out.println(contact);
             }
         } catch (IOException e) {
-            System.err.println("Contacts file not found.");
+            System.err.println("ERROR");
         } finally {
             ContactsManagerApp.continueScript();
         }
@@ -35,7 +35,7 @@ public class ContactsIO {
             firstThree = aNum.substring(3, 6) + "-";
             lastFour = aNum.substring(6);
         } else if (aNum.length() == 7) {
-            areaCode = "(xxx) ";
+            areaCode = "(???) ";
             firstThree = aNum.substring(0, 3) + "-";
             lastFour = aNum.substring(3);
         }
@@ -45,7 +45,7 @@ public class ContactsIO {
     public static void addContact() {
         Input entry = new Input();
         isMatch = false;
-        System.out.print("Enter your new contacts name: ");
+        System.out.print("Enter new contact name");
         String name = entry.getString();
         new ContactsManagerApp();
         try {
@@ -54,32 +54,33 @@ public class ContactsIO {
                 if (contact.toLowerCase().contains(name.toLowerCase())) {
                     isMatch = true;
                     System.out.println(contact);
+                    System.out.println();
                     new ContactsManagerApp();
                     break;
                 }
             }
             if (isMatch) {
-                System.out.println("A name match was found in your contact's list.\n" +
-                        "Would you like to continue adding a new contact?");
+                System.out.println("A contact with that name already exists.\n" +
+                        "Would you like to continue?");
                 if (!entry.YorN()) {
                     ContactsManagerApp.continueScript();
                 }
             }
 
         } catch (IOException e) {
-            System.err.println("Contact file not found.");
+            System.err.println("ERROR");
             ContactsManagerApp.continueScript();
         }
-        System.out.print("Enter new contact's phone number:(numbers only, please) ");
+        System.out.print("Enter new contact phone number");
         String phoneNum = formatPhoneNum(entry.getString());
         try {
             Files.write(
                     dataFile,
-                    Arrays.asList(String.format("%-20s | %-20s", name, phoneNum)),
+                    Arrays.asList(String.format("%-30s | %-15s", name, phoneNum)),
                     StandardOpenOption.APPEND
             );
         } catch (IOException e) {
-            System.err.println("Unable to create new contact. Target file not found.");
+            System.err.println("ERROR");
         } finally {
             ContactsManagerApp.continueScript();
         }
@@ -88,7 +89,7 @@ public class ContactsIO {
     public static void searchContactsByName() {
         Input entry = new Input();
        isMatch = false;
-        System.out.print("Enter the name you're looking for: ");
+        System.out.print("Enter contact name for search");
         String search = entry.getString().toLowerCase();
         try {
             List<String> currentList = Files.readAllLines(dataFile);
@@ -111,7 +112,7 @@ public class ContactsIO {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Unable to locate contacts.");
+            System.err.println("ERROR");
         } finally {
             ContactsManagerApp.continueScript();
         }
@@ -120,52 +121,40 @@ public class ContactsIO {
     public static void deleteContact() {
         Input entry = new Input();
         isMatch = false;
-        System.out.print("Enter contact to delete ");
+        System.out.print("Enter contact to delete");
         String search = entry.getString().toLowerCase();
         if (search.isEmpty()) {
-            System.out.println("Enter contact's information ");
+            System.out.println("Unable to locate matching contact");
             deleteContact();
         }
         try {
-            List<String> hereForNow = Files.readAllLines(dataFile);
-            List<String> keepers = new ArrayList<>();
-            for (String potentialVictim : hereForNow) {
-                if (potentialVictim.toLowerCase().contains(search)) {
-                    System.out.println(potentialVictim);
+            List<String> currentContacts = Files.readAllLines(dataFile);
+            List<String> keepContact = new ArrayList<>();
+            for (String removeContact : currentContacts) {
+                if (removeContact.toLowerCase().contains(search)) {
+                    System.out.println(removeContact);
                     System.out.print("Is this the contact you want to delete? ");
                     isMatch = true;
                     if (entry.YorN()) {
                         new ContactsManagerApp();
-                        System.out.println("Contact deleted. ");
+                        System.out.println("Contact deleted");
                     } else {
-                        keepers.add(potentialVictim);
+                        keepContact.add(removeContact);
                     }
                 } else {
-                    keepers.add(potentialVictim);
+                    keepContact.add(removeContact);
                 }
             }
             if (!isMatch) {
-                System.out.println("404 not found.");
+                System.out.println("404 not found");
             }
-            writeContactsList(keepers);
+            writeContactsList(keepContact);
         } catch (IOException e) {
-            System.err.println("Contacts file not found.");
+            System.err.println("ERROR");
         } finally {
             ContactsManagerApp.continueScript();
         }
 
-    }
-
-    public static void writeContactsList(ArrayList<Contact> anArray) {
-        try {
-            FileWriter fw = new FileWriter(dataFile.toString());
-            for (Contact person : anArray) {
-                fw.write(String.format("%-20s | %-20s\n", person.getName(), person.getPhoneNumber()));
-            }
-            fw.close();
-        } catch (IOException e) {
-            e.getMessage();
-        }
     }
 
     public static void writeContactsList(List<String> anArray) {
@@ -176,13 +165,13 @@ public class ContactsIO {
             }
             fw.close();
         } catch (IOException e) {
-            System.err.println("Error. Contacts file could not be created or overwritten");
+            System.err.println("ERROR");
         }
     }
 
     public static void showContactsHeader() {
         new ContactsManagerApp();
-        System.out.printf("%-20s | %-20s\n", "Name", "Phone Number");
+        System.out.printf("%-30s | %-15s\n", "Name", "Phone Number");
         System.out.println("-------------------------------------------");
     }
 
