@@ -28,7 +28,8 @@ public class ContactsManagerApp {
                     ContactsIO.deleteContact();
                 case 5:
                     System.out.println("Goodbye");
-                    break;
+                    return;
+                    
 
                 default:
                     System.out.println("I'm sorry but, it appears that you have made an invalid entry");

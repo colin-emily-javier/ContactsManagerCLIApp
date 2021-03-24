@@ -20,23 +20,22 @@ public class Input {
         return checkValue == 'y';
     }
 
-    public int getInt() {
+    public void getInt() {
         System.out.print("Enter a number ");
         int input = 0;
         try {
-            input = Integer.valueOf(getString());
+            input = Integer.parseInt(getString());
         } catch (Exception e) {
             System.out.println("Invalid input.\n");
             getInt();
         }
-        return input;
     }
 
     public int getInt(String prompt) {
         System.out.print(prompt);
         int input = 0;
         try {
-            input = Integer.valueOf(getString());
+            input = Integer.parseInt(getString());
         } catch (Exception e) {
             System.out.println("Invalid input \n");
             getInt();
