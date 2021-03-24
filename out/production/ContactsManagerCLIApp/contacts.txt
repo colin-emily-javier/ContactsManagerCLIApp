@@ -1,4 +1,6 @@
 
-Jack Blank 1231231234
-Jane Doe 2342342345
-Sam Space 3453453456
+Jack Blank           | (123) 123-1234
+
+Jane Doe             | (234) 234-2345
+
+Sam Space            | (345) 345-3456

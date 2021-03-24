@@ -1,6 +1,3 @@
-import java.io.IOException;
-import java.util.Scanner;
-
 public class ContactsManagerApp {
     public static void main(String[] args) {
         mainMenu();
@@ -50,14 +47,3 @@ public class ContactsManagerApp {
         }
     }
 }
-//              888_8888
-//        public static void userChoice(){
-//
-//            Input option = new Input();
-//            int choice = option.getInt("Enter an option (1, 2, 3, 4 or 5): ");
-//            switch (choice) {
-//                case 1:
-//                  phoneNumber = 1;
-//                    break;
-//            }
-//        }
